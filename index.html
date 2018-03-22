@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="script/myip.js"></script>
+<link rel="stylesheet" href="css/mainwindow.css">
+<title>Hello World!</title>
+</head>
+<body>
+
+<main>
+
+<div id="main">
+<ips>
+<h2 id="ips_title">[ ip list ]</h2>
+<ip><p>ip1</p></ip>
+<ip><p>ip2</p></ip>
+<ip><p>ip3</p></ip>
+</ips>
+
+<info_and_button>
+<info>
+[ information ]<br><br>
+<script>
+var my_ip = getLocalAddress();
+// var my_ip = test();
+document.write(my_ip);
+</script>
+</info>
+
+<buttons>
+<!-- <button_search> -->
+<button class = "button_search" type="submit" onclick="SearchIP();"/>search ip</button>
+<!-- </button_search> -->
+<!-- <button_info> -->
+<button class = "button_info" type="submit" onclick="ScanIP();"/>scan ip</button>
+<!-- </button_info> -->
+</buttons>
+</info_and_button>
+
+<footer>
+    
+</footer>
+
+<!-- <h1>Hello World!</h1>
+We are using node <script>document.write(process.versions.node)</script>,
+Chrome <script>document.write(process.versions.chrome)</script>,
+and Electron <script>document.write(process.versions.electron)</script>. -->
+</body>
+</html>
