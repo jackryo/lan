@@ -18,5 +18,9 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "~1.8.2"
+  },
+  "dependencies": {
+    "node-arp": "^1.0.6",
+    "ping": "^0.2.2"
   }
 }
