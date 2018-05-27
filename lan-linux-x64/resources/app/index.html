@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app = "myApp">
+    <head>
+        <meta charset="UTF-8">
+        <!-- <script type="text/javascript" src="script/myip.js"></script> -->
+        <!-- angular js -->
+        <script src="script/angular.min.js"></script>
+        <script src="script/lan.js"></script>
+        <!--  -->
+        <link rel="stylesheet" href="css/mainwindow.css">
+        <title>Hello World!</title>
+    </head>
+
+    <body>
+        <main>
+        <!-- left main window : -->
+        <div id="main" ng-controller="LanController">
+            <ips>
+                <ips_title id="ips_title">
+                    <div>[ ip list ]</div>
+                    <div>---------------------------------------------------------------------------------------</div>
+                </ips_title>
+
+                <select class="ipShow" id="ips" multiple size="255" ng-model="selectedIP" ng-change="changeSelectedIP()">
+                    <option ng-repeat="ip in ips">
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{{ip.ip}}</div>
+                    </option>
+                </select>
+            </ips>
+
+
+            <!-- right interface information -->
+            <interface>
+                <select class="info" id="interface" name="interface" ng-init="initInterface()">
+                    <option ng-repeat="interface in interfaces">
+                        <div>{{interface.interface}}:{{interface.address}}</div>
+                    </option>
+                </select>
+                <btn>
+                    <button class = "reload_interface" type="submit" ng-click="reloadInterface();"/>
+                        reload
+                    </button>
+                </btn>
+            </interface>
+
+
+            <!-- right detail information and operation buttons -->
+            <info_and_button>
+                <info>
+                    [ information ]<br><br>
+                    <ul>
+                        <li ng-repeat="detail in information">
+                            <div>{{detail}}</div>
+                        </li>
+                    </ul>
+                    <!-- <script> -->
+                        <!-- var my_ip = getLocalAddress(); -->
+                        <!-- // var my_ip = test(); -->
+                        <!-- document.write(my_ip); -->
+                    <!-- </script> -->
+                </info>
+
+                <buttons>
+                    <!-- <button_search> -->
+                    <button class = "button_search" type="submit" ng-click="searchIP()">search ip</button>
+                    <!-- </button_search> -->
+                    <!-- <button_info> -->
+                    <button class = "button_info" type="submit" ng-click="scanIP();">scan ip</button>
+                    <!-- </button_info> -->
+                </buttons>
+            </info_and_button>
+
+            <!-- operation history -->
+            <footer>
+                <ul class="history" id="history">
+                    <li ng-repeat="history in historys" style={{history.color}} history-draw-finish>
+                        <div>{{history.message}}</div>
+                    </li>
+                </ul>
+                <!-- <select class="history" id="history" name="history" multiple size="100"> -->
+                    <!-- <option ng-repeat="history in historys" style={{history.color}}> -->
+                        <!-- <div>{{history.message}}</div> -->
+                    <!-- </option> -->
+                <!-- </select> -->
+            </footer>
+        </div>
+    </body>
+</html>
