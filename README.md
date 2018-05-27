@@ -1,1 +1,1 @@
-test
+$electron main.js
