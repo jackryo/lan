@@ -24,6 +24,20 @@ angular.module('myApp', [])
         //maximum number or history
         MAXIMUM_HISTORY = 50;
 
+
+        $scope.initParams = function(){
+            //initialize interface list
+            $scope.interfaces = [];
+
+            //initialize ip list
+            $scope.ips=[];
+
+            $scope.selectedIP = null;
+
+            $scope.information=[];
+
+        }
+
         // initialize interface information
         $scope.initInterface = function(){
 
@@ -60,15 +74,17 @@ angular.module('myApp', [])
         }
 
         $scope.reloadInterface = function(){
+
             // initialize interface list
-            $scope.interfaces = [];
+            // $scope.interfaces = [];
+
+            $scope.initParams();
 
             $scope.initInterface();
 
             // initialize ip list
-            $scope.ips = [{ip: "no ip",selected: false, information: []}];
+            // $scope.ips = [{ip: "no ip",selected: false, information: []}];
         }
-
 
         // search ip list in same local network
         $scope.searchIP = function(){
@@ -124,6 +140,7 @@ angular.module('myApp', [])
                                             ip: host,
                                             selected: false,
                                             information: {
+                                                ip: "ip address : " + host,
                                                 mac: "mac address : " + mac,
                                                 os : "os : "+ "unknown"
                                             }

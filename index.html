@@ -18,12 +18,11 @@
             <ips>
                 <ips_title id="ips_title">
                     <div>[ ip list ]</div>
-                    <div>---------------------------------------------------------------------------------------</div>
                 </ips_title>
 
                 <select class="ipShow" id="ips" multiple size="255" ng-model="selectedIP" ng-change="changeSelectedIP()">
                     <option ng-repeat="ip in ips">
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;{{ip.ip}}</div>
+                        <div>{{ip.ip}}</div>
                     </option>
                 </select>
             </ips>
@@ -47,12 +46,12 @@
             <!-- right detail information and operation buttons -->
             <info_and_button>
                 <info>
-                    [ information ]<br><br>
-                    <ul>
-                        <li ng-repeat="detail in information">
+                    <info_title>[ information ]</info_title>
+                    <div class="information" id="informaiton">
+                        <div ng-repeat="detail in information">
                             <div>{{detail}}</div>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                     <!-- <script> -->
                         <!-- var my_ip = getLocalAddress(); -->
                         <!-- // var my_ip = test(); -->
@@ -72,16 +71,11 @@
 
             <!-- operation history -->
             <footer>
-                <ul class="history" id="history">
-                    <li ng-repeat="history in historys" style={{history.color}} history-draw-finish>
-                        <div>{{history.message}}</div>
-                    </li>
-                </ul>
-                <!-- <select class="history" id="history" name="history" multiple size="100"> -->
-                    <!-- <option ng-repeat="history in historys" style={{history.color}}> -->
-                        <!-- <div>{{history.message}}</div> -->
-                    <!-- </option> -->
-                <!-- </select> -->
+                <div class="history" id="history">
+                    <div ng-repeat="history in historys" style={{history.color}} history-draw-finish>
+                        <div> > {{history.message}}</div>
+                    </div>
+                </div>
             </footer>
         </div>
     </body>
