@@ -2,7 +2,7 @@ var os = require('os');
 
 angular.module('myApp', [])
 
-    .controller('LanController', function($scope){
+    .controller('LanController', function($scope, $timeout){
 
         // interface list
         $scope.interfaces = [];
@@ -26,14 +26,10 @@ angular.module('myApp', [])
 
 
         $scope.initParams = function(){
-            //initialize interface list
+
             $scope.interfaces = [];
-
-            //initialize ip list
             $scope.ips=[];
-
             $scope.selectedIP = null;
-
             $scope.information=[];
 
         }
@@ -43,6 +39,9 @@ angular.module('myApp', [])
 
             //initialize interfaces
             var interfaces_init = os.networkInterfaces();
+
+            // log
+            $scope.addHistory("[ info ] initializing interface", "white");
 
             for (var dev in interfaces_init){
                 if (dev != "lo"){
@@ -67,23 +66,21 @@ angular.module('myApp', [])
                     ipV: "",
                     selected: ""
                 });
+                $scope.addHistory("[ warning ] no interface found : check your network configuration", "red");
             }
-
-            // log
-            $scope.addHistory("initialized interface information", "white");
         }
 
         $scope.reloadInterface = function(){
 
-            // initialize interface list
-            // $scope.interfaces = [];
+            //log
+            $scope.addHistory("[ info ] reloaded ", "white");
 
+            //initialize all parameters
             $scope.initParams();
 
+            //initialize interface information
             $scope.initInterface();
 
-            // initialize ip list
-            // $scope.ips = [{ip: "no ip",selected: false, information: []}];
         }
 
         // search ip list in same local network
@@ -144,7 +141,13 @@ angular.module('myApp', [])
                                                 mac: "mac address : " + mac,
                                                 os : "os : "+ "unknown"
                                             }
-                                            // mac: mac
+                                        });
+                                        $scope.ips.sort(function(a,b){
+                                            var a_ip = Number(a.ip.split(".")[3]);
+                                            var b_ip = Number(b.ip.split(".")[3]);
+                                            if(a_ip < b_ip) return -1;
+                                            if(a_ip > b_ip) return 1;
+                                            return 0;
                                         });
                                     });
                                 }
@@ -152,10 +155,8 @@ angular.module('myApp', [])
                         }
                     });
                 });
-
+                $scope.addHistory("[ success ] num of hosts : "+ $scope.ips.length + " found", "green");
             }
-            // log
-            $scope.addHistory("discovering ip hosts finished", "white");
         }
 
         $scope.changeSelectedIP = function(){
@@ -197,12 +198,21 @@ angular.module('myApp', [])
             }
 
             //log
-            $scope.historys.push({
-                message: message,
-                color: "color:"+color
+            $timeout(function(){
+                $scope.historys.push({
+                    message: message,
+                    color: "color:"+color
+                });
             });
 
         }
+
+        //add history of ip list drawing
+        $scope.$on('IPDiscoverHistory', function() {
+            //reload
+            $scope.historys.pop();
+            $scope.addHistory("[ success ] num of hosts : "+ $scope.ips.length + " found", "green");
+        });
 
         //scrolling history area
         $scope.$on('historyAutoScroll', function() {
@@ -212,6 +222,18 @@ angular.module('myApp', [])
 
     })
 
+    //directive for history of ip list drawn
+    .directive('ipDrawFinish', function ($timeout) {
+        return {
+            link: function (scope, element, attr) {
+                if (scope.$last === true) {
+                    $timeout(function () {
+                        scope.$emit('IPDiscoverHistory');
+                    });
+                }
+            }
+        }
+    })
 
     //directive for history auto scroll down
     .directive('historyDrawFinish', function ($timeout) {
@@ -224,5 +246,5 @@ angular.module('myApp', [])
                 }
             }
         }
-    });
+    })
 

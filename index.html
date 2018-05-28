@@ -21,7 +21,7 @@
                 </ips_title>
 
                 <select class="ipShow" id="ips" multiple size="255" ng-model="selectedIP" ng-change="changeSelectedIP()">
-                    <option ng-repeat="ip in ips">
+                    <option ng-repeat="ip in ips" ip-draw-finish>
                         <div>{{ip.ip}}</div>
                     </option>
                 </select>
